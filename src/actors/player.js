@@ -17,14 +17,16 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
     const GRAVITY_MODIFIER = ( hasNormalGravity ? 1: -1);
 
     player.update = () => {
-        const DELTA_X = UNIT_WIDTH/128 * deltaTime;
+        const DELTA_TIME = Math.max(deltaTime, 1/24);
+
+        const DELTA_X = UNIT_WIDTH/128 * DELTA_TIME;
         const JUMP_DELTA_Y = UNIT_HEIGHT/4;
         const COLLIDING_TILES = player.colliding(tiles) && Math.abs(player.velocity.y) < 0.1;
         player.finish = player.colliding(target);
 
         if (player.colliding(deadly)) player.life = 0;
 
-        player.velocity.y += PHYSICS_CONST.gravity * GRAVITY_MODIFIER * deltaTime;
+        player.velocity.y += PHYSICS_CONST.gravity * GRAVITY_MODIFIER * DELTA_TIME;
 
         if (kb.pressing('right')){
             player.velocity.x = DELTA_X;
