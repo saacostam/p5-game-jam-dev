@@ -11,7 +11,8 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
     player.friction = 0;
     player.bounciness = 0;
 
-    player.color = hasNormalGravity ? 'red' : 'green';
+    player.color = hasNormalGravity ? 'purple' : 'green';
+    player.finish = false;
 
     const GRAVITY_MODIFIER = ( hasNormalGravity ? 1: -1);
 
@@ -19,6 +20,9 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
         const DELTA_X = UNIT_WIDTH/128 * deltaTime;
         const JUMP_DELTA_Y = UNIT_HEIGHT/4;
         const COLLIDING_TILES = player.colliding(tiles) && Math.abs(player.velocity.y) < 0.1;
+        player.finish = player.colliding(target);
+
+        if (player.colliding(deadly)) player.life = 0;
 
         player.velocity.y += PHYSICS_CONST.gravity * GRAVITY_MODIFIER * deltaTime;
 

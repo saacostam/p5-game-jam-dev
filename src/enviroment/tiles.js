@@ -61,30 +61,39 @@ useBorderFactory = () => {
             x: -UNIT_WIDTH,
             y: -UNIT_HEIGHT/2 + height/2,
             width: UNIT_WIDTH,
-            height: height + UNIT_HEIGHT * 2
+            height: height + UNIT_HEIGHT * 2,
+            type: 'border',
         },
         {
             x: width,
             y: -UNIT_HEIGHT/2 + height/2,
             width: UNIT_WIDTH,
-            height: height + UNIT_HEIGHT * 2
+            height: height + UNIT_HEIGHT * 2,
+            type: 'target',
         },
         {
             x: -UNIT_WIDTH/2 + width/2,
             y: -UNIT_HEIGHT,
             width: width + UNIT_WIDTH * 2,
             height: UNIT_HEIGHT,
+            type: 'border',
         },
         {
             x: -UNIT_WIDTH/2 + width/2,
             y: height,
             width: width + UNIT_WIDTH * 2,
             height: UNIT_HEIGHT,
+            type: 'border',
         },
     ]
 
     for (let i = 0; i < BORDER_DEF.length; i++){
-        const {x, y, width, height} = BORDER_DEF[i];
-        useTilesFactory(x, y, width, height, 'border');
+        const {x, y, width, height, type} = BORDER_DEF[i];
+        if (type === 'border'){
+            useTilesFactory(x, y, width, height, 'border');
+        }else if (type === 'target'){
+            useTargetFactory(x, y, width, height);
+        }
+
     }
 }

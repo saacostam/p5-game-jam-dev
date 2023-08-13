@@ -1,5 +1,5 @@
 let player1, player2;
-let tiles;
+let tiles, deadly, target;
 let backgroundTiles = [];
 let LEVEL = 0;
 
@@ -10,6 +10,8 @@ function canvasConfig(){
 function setup(){
     canvasConfig();
     tiles = new Group();
+    deadly = new Group();
+    target = new Group();
     createLevel(LEVEL);
 }
 
@@ -29,7 +31,12 @@ function draw(){
 
     if (keyboard.pressed('E')) switchColors();
 
-    if (player1.life === 0 || player2.life === 1){
+    if (player1.life === 0 || player2.life === 0){
+        createLevel(LEVEL);
+    }
+
+    if (player1.finish && player2.finish){
+        LEVEL += 0;
         createLevel(LEVEL);
     }
 }

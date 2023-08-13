@@ -39,6 +39,12 @@ const ___buildLevel = (index) => {
                 case 'B':
                     useTilesFactory(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'border');
                     break;
+                case '9':
+                    useSpikeFactory(X, Y, false);
+                    break;
+                case '0':
+                    useSpikeFactory(X, Y, true);
+                    break;
                 case '1':
                     useTilesFactory(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'c1');
                     break;
