@@ -17,7 +17,7 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
     const GRAVITY_MODIFIER = ( hasNormalGravity ? 1: -1);
 
     player.update = () => {
-        const DELTA_TIME = Math.max(deltaTime, 1/24);
+        const DELTA_TIME = Math.min(deltaTime, 1000/24);
 
         const DELTA_X = UNIT_WIDTH/128 * DELTA_TIME;
         const JUMP_DELTA_Y = UNIT_HEIGHT/4;
