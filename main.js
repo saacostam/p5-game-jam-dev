@@ -5,6 +5,7 @@ let LEVEL = 0;
 
 function canvasConfig(){
     createCanvas(WIDTH, HEIGHT);
+    document.querySelector('canvas').style = 'width: 100%';
 }
 
 function setup(){
