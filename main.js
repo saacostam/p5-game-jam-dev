@@ -27,8 +27,10 @@ function draw(){
         camera.zoom = 1;
     }
 
-    if (keyboard.pressed('E')){
-        switchColors();
+    if (keyboard.pressed('E')) switchColors();
+
+    if (player1.life === 0 || player2.life === 1){
+        createLevel(LEVEL);
     }
 }
 

@@ -1,3 +1,3 @@
 const PHYSICS_CONST = {
-    gravity: 0.05,
+    gravity: 0.01,
 }
