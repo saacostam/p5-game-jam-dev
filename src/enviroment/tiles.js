@@ -1,5 +1,5 @@
 const useTilesFactory = (x, y, width, height, type) => {
-    tile = new tiles.Sprite();
+    const tile = new tiles.Sprite();
 
     tile.color = 'black';
     tile.collider = 'static';

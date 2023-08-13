@@ -9,15 +9,16 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
     player.width = UNIT_WIDTH;
     player.rotationLock = true;
     player.friction = 0;
+    player.bounciness = 0;
 
     player.color = hasNormalGravity ? 'red' : 'green';
 
     const GRAVITY_MODIFIER = ( hasNormalGravity ? 1: -1);
 
     player.update = () => {
-        const DELTA_X = UNIT_WIDTH/16 * deltaTime;
+        const DELTA_X = UNIT_WIDTH/128 * deltaTime;
         const JUMP_DELTA_Y = UNIT_HEIGHT/4;
-        const COLLIDING_TILES = player.colliding(tiles);
+        const COLLIDING_TILES = player.colliding(tiles) && Math.abs(player.velocity.y) < 0.1;
 
         player.velocity.y += PHYSICS_CONST.gravity * GRAVITY_MODIFIER * deltaTime;
 
@@ -31,11 +32,9 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
             player.velocity.x = -DELTA_X * GRAVITY_MODIFIER;
         }
 
-        player.velocity.x -= player.velocity.x*0.9;
+        player.velocity.x -= player.velocity.x*0.15;
 
-        if (COLLIDING_TILES){
-            canJump = true;
-        }
+        if (COLLIDING_TILES) canJump = true;
 
         if (kb.presses('space') && canJump){
             player.velocity.y += -JUMP_DELTA_Y * GRAVITY_MODIFIER;
