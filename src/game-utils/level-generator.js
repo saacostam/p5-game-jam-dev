@@ -27,6 +27,8 @@ const ___buildLevel = (index) => {
         }
     }
 
+    if (LEVEL.instruction) useInstructionFactory(LEVEL.instruction);
+
     // Tiles
     for (let i = 0; i < LEVEL.self.length; i++){
         const ROW = LEVEL.self[i];
@@ -85,6 +87,7 @@ const createLevel = (index) => {
     restartLevel();
 
     if (index === -1 ) buildMenu();
+    else if (index === -2) buildControls();
     else ___buildLevel(index);
 
     camera.x = WIDTH/2 - UNIT_WIDTH/2;
@@ -93,12 +96,45 @@ const createLevel = (index) => {
 
 const buildMenu = () => {
     onClickStart = () => {
-        LEVEL += 1;
+        LEVEL = 0;
         restartLevel();
         createLevel(LEVEL);
     }
 
-    useButtonFactory(WIDTH/2, HEIGHT/2, WIDTH/4, UNIT_HEIGHT*2, onClickStart);
+    onClickControl = () => {
+        LEVEL = -2;
+        restartLevel();
+        createLevel(LEVEL);
+    }
+
+    useBackgroundTilesFactor(0, 0, WIDTH*2, HEIGHT*2, 'bg-3');
+
+    const image = new Sprite(WIDTH/2, HEIGHT*2/6, WIDTH/2, HEIGHT/2);
+    image.collider = 'none';
+    image.addAni(title);
+
+    useButtonFactory(WIDTH/2, HEIGHT/2 + (UNIT_HEIGHT*1.5), WIDTH/6, UNIT_HEIGHT, onClickStart, 'START');
+    useButtonFactory(WIDTH/2, HEIGHT/2 + (UNIT_HEIGHT*4.5/2), WIDTH/6, UNIT_HEIGHT, onClickControl, 'CONTROLS');
+
+    player1 = {}; player2 = {};
+    player1.life = 1;
+    player2.life = 1;
+}
+
+const buildControls = () => {
+    onClickBlack = () => {
+        LEVEL = -1;
+        restartLevel();
+        createLevel(LEVEL);
+    }
+
+    useBackgroundTilesFactor(0, 0, WIDTH*2, HEIGHT*2, 'bg-3');
+
+    const image = new Sprite(WIDTH/2, HEIGHT/2 - UNIT_HEIGHT*0.5, WIDTH/2, HEIGHT/2);
+    image.collider = 'none';
+    image.addAni(controls);
+
+    useButtonFactory(UNIT_WIDTH*2.5, UNIT_HEIGHT*0.5, WIDTH/6, UNIT_HEIGHT, onClickBlack, 'BACK');
 
     player1 = {}; player2 = {};
     player1.life = 1;

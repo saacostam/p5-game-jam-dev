@@ -3,46 +3,54 @@ let tiles, deadly, target;
 let backgroundTiles = [];
 let LEVEL = -1;
 
+let futura, title, controls;
+
 let idleAnimation, blackIdleAnimation, spikeSprite, runningRightAnimation, blackRunningRightAnimation;
 
 function preload(){
     idleAnimation = loadAnimation(
-        './idle-1.png',
-        './idle-2.png',
+        './public/idle-1.png',
+        './public/idle-2.png',
     )
 
     blackIdleAnimation = loadAnimation(
-        './idle-1-inv.png',
-        './idle-2-inv.png',
+        './public/idle-1-inv.png',
+        './public/idle-2-inv.png',
     )
 
     spikeSprite = loadAnimation(
-        './puas.png',
+        './public/puas.png',
     )
 
     runningRightAnimation = loadAnimation(
-        './run-1.png',
-        './run-2.png',
-        './run-3.png',
-        './run-4.png',
-        './run-5.png',
-        './run-6.png',
+        './public/run-1.png',
+        './public/run-2.png',
+        './public/run-3.png',
+        './public/run-4.png',
+        './public/run-5.png',
+        './public/run-6.png',
     )
 
     blackRunningRightAnimation = loadAnimation(
-        './run-1-inv.png',
-        './run-2-inv.png',
-        './run-3-inv.png',
-        './run-4-inv.png',
-        './run-5-inv.png',
-        './run-6-inv.png',
+        './public/run-1-inv.png',
+        './public/run-2-inv.png',
+        './public/run-3-inv.png',
+        './public/run-4-inv.png',
+        './public/run-5-inv.png',
+        './public/run-6-inv.png',
     )
+
+    title = loadAnimation('./public/title.png');
+    controls = loadAnimation('./public/controls.png');
+
+    futura = loadFont('./public/futura.otf');
 }
 
 function canvasConfig(){
     createCanvas(WIDTH, HEIGHT);
     document.querySelector('canvas').style = 'width: 100%';
     allSprites.pixelPerfect = true;
+    textFont(futura);
 }
 
 function setup(){

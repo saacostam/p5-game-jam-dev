@@ -42,6 +42,9 @@ useBackgroundTilesFactor = (x, y, width, height, type) => {
     }else if (type === 'bg-2'){
         tile.collider = 'none';
         tile.color = GAME_CONFIG.COLOR_2;
+    }else if (type === 'bg-3'){
+        tile.collider = 'none';
+        tile.color = GAME_CONFIG.COLOR_3;
     }
 
     tile.updateStyle = (tile) => {
