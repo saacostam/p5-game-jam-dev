@@ -4,6 +4,7 @@ let backgroundTiles = [];
 let LEVEL = -1;
 
 let futura, title, controls;
+let death, jump, music, click, dimension;
 
 let idleAnimation, blackIdleAnimation, spikeSprite, runningRightAnimation, blackRunningRightAnimation;
 
@@ -44,6 +45,12 @@ function preload(){
     controls = loadAnimation('./public/controls.png');
 
     futura = loadFont('./public/futura.otf');
+
+    death = loadSound('./public/death.mp3');
+    jump = loadSound('./public/jump.mp3');
+    music = loadSound('./public/music.mp3');
+    click = loadSound('./public/click.mp3');
+    dimension = loadSound('./public/dimension.mp3');
 }
 
 function canvasConfig(){
@@ -59,6 +66,8 @@ function setup(){
     deadly = new Group();
     target = new Group();
     createLevel(LEVEL);
+
+    music.loop();
 }
 
 function draw(){
@@ -75,7 +84,10 @@ function draw(){
         camera.zoom = 1;
     }
 
-    if (keyboard.pressed('E')) switchColors();
+    if (keyboard.pressed('E')) {
+        switchColors();
+        dimension.play();
+    }
 
     if (player1.life === 0 || player2.life === 0) createLevel(LEVEL);
 

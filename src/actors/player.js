@@ -32,7 +32,10 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
         const COLLIDING_TILES = player.colliding(tiles) && Math.abs(player.velocity.y) < UNIT_HEIGHT/128;
         player.finish = player.colliding(target);
 
-        if (player.colliding(deadly)) player.life = 0;
+        if (player.colliding(deadly)) {
+            player.life = 0;
+            death.play();
+        }
 
         player.velocity.y += PHYSICS_CONST.gravity * GRAVITY_MODIFIER * DELTA_TIME;
 
@@ -64,6 +67,7 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
             player.velocity.y += -JUMP_DELTA_Y * GRAVITY_MODIFIER;
             player.pos.y += -10      * GRAVITY_MODIFIER;
             canJump = false;
+            jump.play();
         }
 
         if (kb.pressed('r')) player.life = 0;

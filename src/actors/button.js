@@ -10,7 +10,10 @@ const useButtonFactory = (x, y, width, height, callback, textToWrite) => {
     button.update = () => {
         if (button.mouse.hovering()){
             button.hover = true;
-            if (mouse.pressed()) callback();
+            if (mouse.pressed()) {
+                callback();
+                click.play();
+            }
         }else{
             button.hover = false;
         }
