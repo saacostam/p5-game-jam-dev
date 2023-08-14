@@ -4,7 +4,7 @@ let backgroundTiles = [];
 let LEVEL = -1;
 
 let futura, title, controls;
-let death, jump, music, click, dimension;
+let death, jump, music, click, dimension, success;
 
 let idleAnimation, blackIdleAnimation, spikeSprite, runningRightAnimation, blackRunningRightAnimation;
 
@@ -51,6 +51,7 @@ function preload(){
     music = loadSound('./public/music.mp3');
     click = loadSound('./public/click.mp3');
     dimension = loadSound('./public/dimension.mp3');
+    success = loadSound('./public/success.mp3');
 }
 
 function canvasConfig(){
@@ -94,6 +95,7 @@ function draw(){
     if (player1.finish && player2.finish){
         LEVEL += 1;
         createLevel(LEVEL);
+        success.play();
     }
 }
 
