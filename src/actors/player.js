@@ -25,10 +25,10 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
     const GRAVITY_MODIFIER = ( hasNormalGravity ? 1: -1);
 
     player.update = () => {
-        const DELTA_TIME = Math.min(deltaTime, 1000/24);
+        const DELTA_TIME = deltaTime;
 
         const DELTA_X = UNIT_WIDTH/128 * DELTA_TIME;
-        const JUMP_DELTA_Y = UNIT_HEIGHT/6;
+        const JUMP_DELTA_Y = UNIT_HEIGHT/108;
         const COLLIDING_TILES = player.colliding(tiles) && Math.abs(player.velocity.y) < UNIT_HEIGHT/128;
         player.finish = player.colliding(target);
 
@@ -64,7 +64,7 @@ const usePlayerFactory = (x, y, hasNormalGravity) => {
         if (COLLIDING_TILES) canJump = true;
 
         if (kb.presses('space') && canJump){
-            player.velocity.y += -JUMP_DELTA_Y * GRAVITY_MODIFIER;
+            player.velocity.y += -JUMP_DELTA_Y * GRAVITY_MODIFIER * DELTA_TIME;
             player.pos.y += -10      * GRAVITY_MODIFIER;
             canJump = false;
             jump.play();
