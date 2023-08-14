@@ -1,7 +1,4 @@
 const ___buildLevel = (index) => {
-    allSprites.forEach(SPRITE => SPRITE.life = 0);
-    backgroundTiles.forEach(SPRITE => SPRITE.life = 0);
-
     if (index >= GAME_LEVELS.length) throw new Error('Trying to access a undefined level. Please check the index of the level provided!');
     const LEVEL = GAME_LEVELS[index];
 
@@ -20,6 +17,12 @@ const ___buildLevel = (index) => {
                 case ',':
                     useBackgroundTilesFactor(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'bg-2');
                     break;
+                case 'B':
+                    useBackgroundTilesFactor(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'bg-1');
+                    break;
+                case 'X':
+                    useBackgroundTilesFactor(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'bg-2');
+                    break;
             }
         }
     }
@@ -36,19 +39,19 @@ const ___buildLevel = (index) => {
                 case 'M':
                     useTilesFactory(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'div');
                     break;
-                case 'B':
+                case 'N':
                     useTilesFactory(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'border');
                     break;
-                case '9':
+                case 'X':
                     useSpikeFactory(X, Y, false);
                     break;
-                case '0':
+                case 'B':
                     useSpikeFactory(X, Y, true);
                     break;
-                case '1':
+                case 'A':
                     useTilesFactory(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'c1');
                     break;
-                case '2':
+                case 'Z':
                     useTilesFactory(X, Y, UNIT_WIDTH, UNIT_HEIGHT, 'c2');
                     break;
             }
@@ -66,9 +69,38 @@ const ___buildLevel = (index) => {
 
     player1 = usePlayerFactory(p1x, p1y, true);
     player2 = usePlayerFactory(p2x, p2y, false);
+}
+
+const restartLevel = () => {
+    allSprites.forEach( SPRITE => SPRITE.life = 0);
+    backgroundTiles.forEach( SPRITE => SPRITE.life = 0);
+    tiles.forEach( SPRITE => SPRITE.life = 0);
+    deadly.forEach( SPRITE => SPRITE.life = 0);
+    target.forEach( SPRITE => SPRITE.life = 0);
+
+    if (GAME_CONFIG.COLOR_1 !== GAME_CONFIG.FIXED_COLOR_1) switchColors();
+}
+
+const createLevel = (index) => {
+    restartLevel();
+
+    if (index === -1 ) buildMenu();
+    else ___buildLevel(index);
 
     camera.x = WIDTH/2 - UNIT_WIDTH/2;
     camera.y = HEIGHT/2 - UNIT_HEIGHT/2;
-}
+};
 
-const createLevel = (index) => ___buildLevel(index);
+const buildMenu = () => {
+    onClickStart = () => {
+        LEVEL += 1;
+        restartLevel();
+        createLevel(LEVEL);
+    }
+
+    useButtonFactory(WIDTH/2, HEIGHT/2, WIDTH/4, UNIT_HEIGHT*2, onClickStart);
+
+    player1 = {}; player2 = {};
+    player1.life = 1;
+    player2.life = 1;
+}

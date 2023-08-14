@@ -1,5 +1,5 @@
-const __COLOR_1 = 'rgb(20, 20, 20)';
-const __COLOR_2 = 'rgb(20, 20, 100)';
+const __COLOR_1 = 'rgb(48,48,48)';
+const __COLOR_2 = 'rgb(237,237,237)';
 
 const GAME_CONFIG = {
     COLOR_1: __COLOR_1,

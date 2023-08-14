@@ -9,6 +9,11 @@ const useSpikeFactory = (x, y, looksUp) => {
     spike.height = UNIT_HEIGHT;
     spike.width = UNIT_WIDTH;
 
+    spike.addAni('idle', spikeSprite);
+    spike.changeAni('idle');
+
+    spike.rotation = looksUp ? 0 : 180;
+
     spike.collider = 'static';
 
     return spike;
