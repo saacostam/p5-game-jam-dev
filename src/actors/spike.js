@@ -6,7 +6,7 @@ const useSpikeFactory = (x, y, looksUp) => {
     spike.y = y;
     spike.x = x;
 
-    spike.height = UNIT_HEIGHT/2;
+    spike.height = UNIT_HEIGHT/5;
     spike.width = UNIT_WIDTH;
 
     spike.addAni('idle', spikeSprite);

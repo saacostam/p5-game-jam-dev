@@ -88,6 +88,7 @@ const createLevel = (index) => {
 
     if (index === -1 ) buildMenu();
     else if (index === -2) buildControls();
+    else if (index === 4) buildEnd();
     else ___buildLevel(index);
 
     camera.x = WIDTH/2 - UNIT_WIDTH/2;
@@ -130,11 +131,43 @@ const buildControls = () => {
 
     useBackgroundTilesFactor(0, 0, WIDTH*2, HEIGHT*2, 'bg-3');
 
-    const image = new Sprite(WIDTH/2, HEIGHT/2 - UNIT_HEIGHT*0.5, WIDTH/2, HEIGHT/2);
+    const image = new Sprite(WIDTH*15/32, HEIGHT*17/32 - UNIT_HEIGHT*0.5, WIDTH/2, HEIGHT/2);
     image.collider = 'none';
     image.addAni(controls);
 
     useButtonFactory(UNIT_WIDTH*2.5, UNIT_HEIGHT*0.5, WIDTH/6, UNIT_HEIGHT, onClickBlack, 'BACK');
+
+    player1 = {}; player2 = {};
+    player1.life = 1;
+    player2.life = 1;
+}
+
+const buildEnd = () => {
+    onClickBlack = () => {
+        LEVEL = -1;
+        restartLevel();
+        createLevel(LEVEL);
+    }
+
+    useBackgroundTilesFactor(0, 0, WIDTH*2, HEIGHT*2, 'bg-3');
+
+    const image = new Sprite(WIDTH*15/32, HEIGHT*2/5 - UNIT_HEIGHT*0.5, WIDTH/2, HEIGHT/2);
+    image.collider = 'none';
+    image.draw = () => {
+        textAlign(CENTER, CENTER);
+        fill(GAME_CONFIG.FIXED_COLOR_2);
+
+        textSize(UNIT_HEIGHT*2);
+        text('(•.•)', 0, -UNIT_HEIGHT*3);
+
+        textSize(UNIT_HEIGHT*2);
+        text('CONGRATULATIONS!', 0, 0);
+
+        textSize(UNIT_HEIGHT*2/3);
+        text('PLZ VOTE IF YOU ENJOYED THE GAME! <3', 0, UNIT_HEIGHT*2);
+    }
+
+    useButtonFactory(WIDTH/2, HEIGHT*5/6, WIDTH/5, UNIT_HEIGHT, onClickBlack, 'BACK TO MENU');
 
     player1 = {}; player2 = {};
     player1.life = 1;
